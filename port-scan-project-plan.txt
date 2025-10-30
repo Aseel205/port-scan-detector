@@ -1,0 +1,86 @@
+Port Scan Detector — Mini Project Plan
+=======================================
+
+Project title:
+Port Scan Detector (Real-time) — Mini project for Network Security course
+
+Student(s):
+[Your name] — [Partner name]
+
+Course:
+Network Security — Mini project (2 credits)
+
+Overview:
+Implement a lightweight real-time Port Scan Detector that monitors incoming TCP connection attempts and raises alerts when an IP address probes many different ports in a short period. The project is small, demonstrable, and suitable for completion within 1–3 days. It demonstrates practical network-security skills and can be listed on a CV.
+
+Objectives:
+- Capture incoming TCP packets (SYN packets) on the host machine or a chosen interface.
+- Track connection attempts per remote IP and count distinct destination ports per time window.
+- Detect common scan types (e.g., horizontal, vertical scans) using simple thresholds.
+- Log alerts and provide a short real-time console notification.
+- Provide clear documentation and a short demo scenario.
+
+Scope (what will be delivered):
+1. Source code:
+   - main.py: entry point to run the detector
+   - packet_sniffer.py: captures packets (using scapy or sockets)
+   - scanner_detector.py: core detection logic and thresholds
+   - alert_manager.py: logs alerts and saves them to data/logs/alerts.log
+   - utils.py: helper functions and configuration
+2. README.md and a design_notes.md explaining architecture and how detection works.
+3. A sample run script (run_demo.sh or run_demo.bat).
+4. Optional: a small pcap sample or instructions to simulate scans using nmap.
+5. A short presentation/demo script for the lecturer (how to reproduce results).
+
+Technical approach:
+- Language: Python 3.10+.
+- Libraries: scapy (recommended) or plain sockets, logging, collections, argparse.
+- Detection algorithm (simple & effective):
+  - Maintain a sliding time window (e.g., 30 seconds).
+  - For each remote IP, keep a set of destination ports contacted within the window.
+  - If the count of distinct ports > THRESHOLD (e.g., 20 ports in 30s), raise an alert.
+  - Optionally, detect rapid repeated attempts to the same port (indicating vertical scan) or many IPs targeting the same port (indicating mass scan).
+- Data storage: append alerts to data/logs/alerts.log with timestamp, IP, ports count, example ports.
+
+Timeline (1–3 days plan):
+Day 1:
+- Set up project folder and environment.
+- Implement packet_sniffer.py to capture TCP SYN packets.
+- Implement basic logging and main.py to run sniffer.
+
+Day 2:
+- Implement scanner_detector.py with sliding-window logic and thresholds.
+- Implement alert_manager.py to log alerts and print console notifications.
+- Prepare README and design notes.
+
+Day 3 (optional / polish):
+- Add tests or sample pcap.
+- Create run_demo script and demo notes.
+- Prepare a 5-minute demo and short slides (1–2 slides).
+
+Testing & demo:
+- Local test: use nmap from another machine or locally with `nmap -p- --min-rate 1000 <target>` to simulate a port scan.
+- Offline test: replay a provided pcap file with scapy or tcpdump for deterministic demo.
+- Demo script will show normal traffic (no alert) and then a simulated nmap scan triggering an alert.
+
+Ethics & safety:
+- Run scans and tests only on machines/networks you own or have permission to test.
+- Do not scan public or third-party systems without explicit authorization.
+
+How to run (example):
+1. Install dependencies: `pip install -r requirements.txt` (scapy, etc.)
+2. Run detector (may need admin/root privileges): `python src/main.py --interface eth0`
+3. Check `data/logs/alerts.log` for recorded alerts.
+
+What to present to the lecturer:
+- The project folder (code + docs).
+- A 3–5 minute live demo showing detection of a simulated scan.
+- A short explanation of detection logic and limitations.
+- A one-paragraph reflection of what you learned.
+
+CV line suggestion:
+Implemented a real-time Port Scan Detection tool in Python that captures network packets and detects scanning activity using sliding-window heuristics.
+
+Contact:
+For questions: [Your email]
+
