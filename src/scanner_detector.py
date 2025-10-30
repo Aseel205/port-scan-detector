@@ -30,6 +30,7 @@ def process_syn(src_ip, dport):
     # Get unique ports in sliding window
     unique_ports = set([p for _, p in q])
     if len(unique_ports) > PORT_THRESHOLD:
+        sample_ports = sorted(list(unique_ports))[:10]
         alert(src_ip, unique_ports, q[0][0], now)
         # Clear out connections for this IP to avoid duplicate/flooded alerts
         connections[src_ip].clear()

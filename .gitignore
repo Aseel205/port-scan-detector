@@ -12,4 +12,4 @@ __pycache__/
 Thumbs.db
 
 # Logs
-data/logs/*.log
+data/logs/*

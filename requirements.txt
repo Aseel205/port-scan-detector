@@ -2,3 +2,6 @@ scapy
 argparse
 # collections is standard library
 # logging is standard library
+requests
+dnspython
+# sqlite3 is standard library
